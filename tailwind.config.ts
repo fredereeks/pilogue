@@ -14,7 +14,8 @@ const config: Config = {
       },
       colors: {
         primary: "#013678",
-        success: "#09dba0",
+        success: "#148c1b",
+        green: "#09dba0",
         danger: "#f34f7c",
       }
     },
