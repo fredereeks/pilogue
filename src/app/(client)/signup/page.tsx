@@ -1,17 +1,17 @@
-import { airplane_handpush } from '@/assets/images'
-import { LoginForm } from '@/ui'
+import { airplane_tarmac } from '@/assets/images'
+import { SignupForm } from '@/ui'
 import Image from 'next/image'
 import React from 'react'
 
-export default function LoginPage() {
+export default function SignupPage() {
 
     return (
         <main className="flex flex-col relative">
             <section className="flex relative min-h-[calc(100vh-100px)] w-full md:flex">
-                <LoginForm key={'820750'} />
                 <div className="flex md:relative flex-1">
-                    <Image src={airplane_handpush} alt='Pilogue Plane on a Runway' className='object-cover absolute left-0 top-0 w-full h-full' />
+                    <Image src={airplane_tarmac} alt='Pilogue Plane on a Runway' className='object-cover absolute left-0 top-0 w-full h-full' />
                 </div>
+                <SignupForm key={'820750'} />
             </section>
         </main>
     )
