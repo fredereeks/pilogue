@@ -6,6 +6,114 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+enum CourseStatus {
+  NotApplicable
+  Ongoing
+  Completed
+}
+
+enum PilotMedical {
+  Blank
+  Passed
+  Failed
+}
+
+enum PilotType {
+  Normal
+  Admin
+}
+
+enum PilotStatus {
+  Pending
+  Active
+  Retired
+  Suspended
+  Dismissed
+}
+
+enum Status {
+  Pending
+  Approved
+  Suspended
+  Disabled
+}
+
+model AirCraft {
+  id           String        @id @default(cuid())
+  name         String
+  middlename   String?
+  lastname     String
+  email        String        @unique
+  password     String
+  phone        String?
+  image        String?       @db.Text()
+  status       Status        @default(Pending)
+  ranking      Boolean       @default(false)
+  pilots       Pilot[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  updatedBy    String?
+  FlightReport FlightReport?
+}
+
+model Course {
+  id        String       @id @default(cuid())
+  title     String
+  status    CourseStatus @default(NotApplicable)
+  pilot     Pilot?       @relation(fields: [pilotId], references: [id])
+  pilotId   String?      @unique
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  updatedBy String?
+}
+
+model FlightReport {
+  id         String    @id @default(cuid())
+  from       String    @db.Text()
+  to         String    @db.Text()
+  duration   String    @db.Text()
+  status     Status    @default(Pending)
+  pilot      Pilot?    @relation(fields: [pilotId], references: [id])
+  pilotId    String?   @unique
+  aircraft   AirCraft? @relation(fields: [aircraftId], references: [id])
+  aircraftId String?   @unique
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  updatedBy  String?
+}
+
+model MedicalReport {
+  id        String   @id @default(cuid())
+  status    Status   @default(Pending)
+  pilot     Pilot?   @relation(fields: [pilotId], references: [id])
+  pilotId   String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model Pilot {
+  id         String         @id @default(cuid())
+  firstname  String
+  middlename String?
+  lastname   String
+  email      String         @unique
+  password   String
+  phone      String?
+  image      String?        @db.Text
+  type       PilotType      @default(Normal)
+  status     PilotStatus    @default(Pending)
+  captain    Boolean        @default(false)
+  flights    FlightReport[]
+  medical    MedicalReport?
+  typeRating AirCraft[]
+  courses     Course[]
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  updatedBy  String?
 }

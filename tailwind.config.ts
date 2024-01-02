@@ -3,7 +3,7 @@ import type { Config } from 'tailwindcss'
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/ui/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: "class",
@@ -14,15 +14,16 @@ const config: Config = {
       },
       colors: {
         primary: "#013678",
-        success: "#148c1b",
+        success: "#187318",
         green: "#09dba0",
         danger: "#f34f7c",
       }
     },
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["winter"]
-  }
+  plugins: [],
+  // plugins: [require("daisyui")],
+  // daisyui: {
+  //   themes: ["winter"]
+  // }
 }
 export default config
