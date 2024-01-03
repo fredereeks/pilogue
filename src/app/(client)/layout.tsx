@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '../globals.css'
 import { Header, Footer } from '../../ui'
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,9 +17,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} mt-[64px]`}>
+    <html lang="en" style={{overflowX: "hidden", minHeight: "100vh"}}>
+      <body className={`${inter.className} mt-[64px]`} style={{overflowX: "hidden", minHeight: "100vh"}}>
         <Header />  
+        <Toaster />
         {children}
         <Footer />  
       </body>
